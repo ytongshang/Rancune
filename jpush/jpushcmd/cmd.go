@@ -5,14 +5,15 @@ import (
 
 	"log"
 
-	"encoding/json"
 	"github.com/ytongshang/rancune/jpush"
+	"github.com/ytongshang/rancune/jpush/config"
+	"encoding/json"
 )
 
 const All = "all"
 
 func main() {
-	C, err := initConfig()
+	C, err := config.InitConfig()
 	if err != nil {
 		log.Fatal(C)
 	}
@@ -67,10 +68,25 @@ func main() {
 		msg.AddExtras(key, value)
 	}
 
+	var notification jpush.Notification
+	notification.SetAlert(C.Notice.Alert)
+	// android
+	var androidNotification jpush.AndroidNotification
+	androidNotification.Title = C.Notice.Title
+	androidNotification.Alert = C.Notice.Alert
+	for key, value := range C.Notice.Extras {
+		if androidNotification.Extras == nil {
+			androidNotification.Extras = make(map[string]interface{})
+		}
+		androidNotification.Extras[key] = value
+	}
+	notification.SetAndroidNotice(&androidNotification)
+
 	payload := jpush.NewPushPayLoad()
 	payload.SetPlatform(&pf)
 	payload.SetAudience(&ad)
 	payload.SetMessage(&msg)
+	payload.SetNotification(&notification)
 
 	bytes, err := payload.ToBytes()
 	if err != nil {
@@ -79,7 +95,7 @@ func main() {
 	fmt.Printf("%s\r\n", string(bytes))
 
 	//push
-	c := jpush.NewPushClient(C.MasterSecret, C.AppKey, C.PushBaseUrl)
+	c := jpush.NewPushClient(C.AppKey, C.MasterSecret, C.PushBaseUrl)
 	str, err := c.SendPush(bytes)
 	if err != nil {
 		fmt.Printf("err:%s", err.Error())

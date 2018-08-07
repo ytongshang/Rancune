@@ -1,0 +1,51 @@
+{
+  "appKey": "",
+  "mastersecret": "",
+  "pushbaseurl": "https://bjapi.push.jiguang.cn/v3/push",
+  "platforms": [
+    "android"
+  ],
+  "tags": [],
+  "tag_and": [],
+  "tag_not": [],
+  "alias": [
+    "405245022"
+  ],
+  "ids": [],
+  "title": "推送测试",
+  "content": "",
+  "extras": {
+    "key1": 123,
+    "key2": "test"
+  },
+  "options": {
+  },
+  "message": {
+    "itemtype": "1",
+    "itemid": "11604576",
+    "itemtitle": "11",
+    "messagetitle": "触手ddddd",
+    "messagedesc": "主播\"rancune\"邀你给他捧个场！",
+    "createdate": "1519799850000",
+    "linkurl": "https://chushou.tv/",
+    "key": "",
+    "_ss": "",
+    "_fromSource": ""
+  },
+  "notification": {
+    "alert" : "hello, JPush!",
+    "title" : "JPush test",
+    "extras": {
+      "itemtype": "1",
+      "itemid": "11604576",
+      "itemtitle": "11",
+      "messagetitle": "触手ddddd",
+      "messagedesc": "主播\"rancune\"邀你给他捧个场！",
+      "createdate": "1519799850000",
+      "linkurl": "https://chushou.tv/",
+      "key": "",
+      "_ss": "",
+      "_fromSource": ""
+    }
+  }
+}

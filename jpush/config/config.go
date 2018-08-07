@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"encoding/json"
@@ -22,6 +22,7 @@ type config struct {
 	Extras       map[string]interface{} `json:"extras"`
 	Opions       map[string]interface{} `json:"options"`
 	Msg          Message                `json:"message"`
+	Notice       Notice                 `json:"notification"`
 }
 
 type Message struct {
@@ -37,8 +38,14 @@ type Message struct {
 	FromSource   string `json:"_fromSource"`
 }
 
-func initConfig() (*config, error) {
-	path := "./pushconfig/pushconfig.json"
+type Notice struct {
+	Alert  string                 `json:"alert"`
+	Title  string                 `json:"title"`
+	Extras map[string]interface{} `json:"extras"`
+}
+
+func InitConfig() (*config, error) {
+	path := "./pushconfig/jpushconfig.json"
 	filename, err := filepath.Abs(path)
 	if err != nil {
 		return nil, err
