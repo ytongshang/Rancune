@@ -10,7 +10,10 @@ import (
 	"encoding/json"
 )
 
-const All = "all"
+const (
+	MESSAGE      = "message"
+	NOTIFICATION = "notification"
+)
 
 func main() {
 	C, err := config.InitConfig()
@@ -21,7 +24,7 @@ func main() {
 
 	//Platform
 	var pf jpush.Platform
-	if InSlice(C.Platforms, All) {
+	if InSlice(C.Platforms, jpush.ALL) {
 		pf.All()
 	} else {
 		if InSlice(C.Platforms, jpush.IOS) {
@@ -53,40 +56,76 @@ func main() {
 		ad.SetAlias(C.Alias)
 	}
 
+	// Option
+	var option *jpush.Option
+	var apns = C.Opions["apns_production"]
+	if value, ok := apns.(bool); ok {
+		option = new(jpush.Option)
+		option.ApnsProduction = value
+	}
+
 	// Message
-	var msg jpush.Message
-	msg.Title = C.Title
-	content := C.Content
-	if content == "" {
-		b, err := json.Marshal(C.Msg)
+	var msg *jpush.Message
+	if InSlice(C.PushType, MESSAGE) {
+		msg = new(jpush.Message)
+		msg.Title = C.Msg.Title
+		var content string
+		b, err := json.Marshal(C.Msg.Extras)
 		if err == nil {
 			content = string(b)
 		}
-	}
-	msg.Content = content
-	for key, value := range C.Extras {
-		msg.AddExtras(key, value)
+		msg.Content = content
 	}
 
-	var notification jpush.Notification
-	notification.SetAlert(C.Notice.Alert)
-	// android
-	var androidNotification jpush.AndroidNotification
-	androidNotification.Title = C.Notice.Title
-	androidNotification.Alert = C.Notice.Alert
-	for key, value := range C.Notice.Extras {
-		if androidNotification.Extras == nil {
-			androidNotification.Extras = make(map[string]interface{})
+	// notification
+	var notification *jpush.Notification
+	if InSlice(C.PushType, NOTIFICATION) {
+		notification = new(jpush.Notification)
+		notification.SetAlert(C.Notice.Alert)
+
+		// android
+		var androidNotification jpush.AndroidNotification
+		androidNotification.Alert = C.Notice.Alert
+		androidNotification.Title = C.Notice.AndroidTitle
+		androidNotification.UriAction = C.Notice.AndroidUriAction
+		androidNotification.Extras = C.Notice.Extras
+		notification.SetAndroidNotice(&androidNotification)
+
+		// ios
+		var iosNotification jpush.IOSNotification
+		iosNotification.Alert = C.Notice.Alert
+		iosNotification.Sound = C.Notice.IOSSound
+		iosNotification.Badge = C.Notice.IOSBadge
+		iosNotification.Category = C.Notice.IOSCategory
+		iosNotification.ContentAvailable = C.Notice.IOSContentAvailable
+		iosNotification.MutableContent = C.Notice.IOSMutableContent
+		if iosNotification.Extras == nil {
+			iosNotification.Extras = make(map[string]interface{})
 		}
-		androidNotification.Extras[key] = value
+		b, err := json.Marshal(C.Notice.Extras)
+		if err == nil {
+			iosNotification.Extras["IOSPushContent"] = string(b)
+		}
+		notification.SetIOSNotice(&iosNotification)
 	}
-	notification.SetAndroidNotice(&androidNotification)
+
+	if msg == nil && notification == nil {
+		fmt.Println("请指定pushtype")
+		return
+	}
 
 	payload := jpush.NewPushPayLoad()
 	payload.SetPlatform(&pf)
 	payload.SetAudience(&ad)
-	payload.SetMessage(&msg)
-	payload.SetNotification(&notification)
+	if option != nil {
+		payload.SetOptions(option)
+	}
+	if msg != nil {
+		payload.SetMessage(msg)
+	}
+	if notification != nil {
+		payload.SetNotification(notification)
+	}
 
 	bytes, err := payload.ToBytes()
 	if err != nil {

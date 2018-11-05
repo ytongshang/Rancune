@@ -1,6 +1,6 @@
 {
-  "appKey": "",
-  "mastersecret": "",
+  "appKey": "******",
+  "mastersecret": "******",
   "pushbaseurl": "https://bjapi.push.jiguang.cn/v3/push",
   "platforms": [
     "android"
@@ -9,35 +9,29 @@
   "tag_and": [],
   "tag_not": [],
   "alias": [
-    "405245022"
+    "1365199102"
   ],
   "ids": [],
-  "title": "推送测试",
-  "content": "",
-  "extras": {
-    "key1": 123,
-    "key2": "test"
-  },
   "options": {
+    "apns_production": false
   },
-  "message": {
-    "itemtype": "1",
-    "itemid": "11604576",
-    "itemtitle": "11",
-    "messagetitle": "触手ddddd",
-    "messagedesc": "主播\"rancune\"邀你给他捧个场！",
-    "createdate": "1519799850000",
-    "linkurl": "https://chushou.tv/",
-    "key": "",
-    "_ss": "",
-    "_fromSource": ""
-  },
+  "pushtype": [
+    "notification",
+    "message"
+  ],
   "notification": {
-    "alert" : "hello, JPush!",
-    "title" : "JPush test",
+    "alert": "hello, hello!",
+    "android-title": "JPush test",
+    "android-uri-action":"com.kascend.chushou.view.activity.SchemeActivity",
+    "ios-sound": "default",
+    "ios-badge": "1",
+    "ios-content-available": false,
+    "ios-mutable-content": false,
+    "ios-category": "action",
     "extras": {
+      "displayStyle": 0,
       "itemtype": "1",
-      "itemid": "11604576",
+      "itemid": "4545018",
       "itemtitle": "11",
       "messagetitle": "触手ddddd",
       "messagedesc": "主播\"rancune\"邀你给他捧个场！",
@@ -45,7 +39,8 @@
       "linkurl": "https://chushou.tv/",
       "key": "",
       "_ss": "",
-      "_fromSource": ""
+      "_fromSource": "",
+      "liveType": "2"
     }
   }
 }

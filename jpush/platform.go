@@ -5,6 +5,7 @@ import (
 )
 
 const (
+	ALL = "all"
 	IOS      = "ios"
 	ANDROID  = "android"
 	WINPHONE = "winphone"

@@ -17,31 +17,27 @@ type config struct {
 	TagsAnd      []string               `json:"tag_and"`
 	TagsNot      []string               `json:"tag_not"`
 	Ids          []string               `json:"ids"`
-	Title        string                 `json:"title"`
-	Content      string                 `json:"content"`
-	Extras       map[string]interface{} `json:"extras"`
 	Opions       map[string]interface{} `json:"options"`
+	PushType     []string               `json:"pushtype"`
 	Msg          Message                `json:"message"`
 	Notice       Notice                 `json:"notification"`
 }
 
 type Message struct {
-	Itemid       string `json:"itemid"`
-	Itemtype     string `json:"itemtype"`
-	Itemtitle    string `json:"itemtitle"`
-	Messagetitle string `json:"messagetitle"`
-	Messagedesc  string `json:"messagedesc"`
-	Createdate   string `json:"createdate"`
-	Linkurl      string `json:"linkurl"`
-	Key          string `json:"key"`
-	Ss           string `json:"_ss"`
-	FromSource   string `json:"_fromSource"`
+	Title  string                 `json:"title"`
+	Extras map[string]interface{} `json:"extras"`
 }
 
 type Notice struct {
-	Alert  string                 `json:"alert"`
-	Title  string                 `json:"title"`
-	Extras map[string]interface{} `json:"extras"`
+	Alert               string                 `json:"alert"`
+	AndroidTitle        string                 `json:"android-title"`
+	AndroidUriAction    string                 `json:"android-uri-action"`
+	IOSSound            string                 `json:"ios-sound"`
+	IOSBadge            string                 `json:"ios-badge"`
+	IOSContentAvailable bool                   `json:"ios-content-available"`
+	IOSMutableContent   bool                   `json:"ios-mutable-content"`
+	IOSCategory         string                 `json:"ios-category"`
+	Extras              map[string]interface{} `json:"extras"`
 }
 
 func InitConfig() (*config, error) {
