@@ -32,6 +32,7 @@ type Notice struct {
 	Alert               string                 `json:"alert"`
 	AndroidTitle        string                 `json:"android-title"`
 	AndroidUriAction    string                 `json:"android-uri-action"`
+	AndroidUriActivity  string                 `json:"android-uri-activity"`
 	IOSSound            string                 `json:"ios-sound"`
 	IOSBadge            string                 `json:"ios-badge"`
 	IOSContentAvailable bool                   `json:"ios-content-available"`

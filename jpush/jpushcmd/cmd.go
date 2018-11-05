@@ -88,6 +88,7 @@ func main() {
 		androidNotification.Alert = C.Notice.Alert
 		androidNotification.Title = C.Notice.AndroidTitle
 		androidNotification.UriAction = C.Notice.AndroidUriAction
+		androidNotification.UriActivity = C.Notice.AndroidUriActivity
 		androidNotification.Extras = C.Notice.Extras
 		notification.SetAndroidNotice(&androidNotification)
 

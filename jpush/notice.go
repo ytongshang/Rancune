@@ -7,11 +7,12 @@ type Notification struct {
 }
 
 type AndroidNotification struct {
-	Alert     string                 `json:"alert"`
-	Title     string                 `json:"title,omitempty"`
-	BuilderId int                    `json:"builder_id,omitempty"`
-	UriAction string                 `json:"uri_action,omitempty"`
-	Extras    map[string]interface{} `json:"extras,omitempty"`
+	Alert       string                 `json:"alert"`
+	Title       string                 `json:"title,omitempty"`
+	BuilderId   int                    `json:"builder_id,omitempty"`
+	UriAction   string                 `json:"uri_action,omitempty"`
+	UriActivity string                 `json:"uri_activity,omitempty"`
+	Extras      map[string]interface{} `json:"extras,omitempty"`
 }
 
 type IOSNotification struct {
