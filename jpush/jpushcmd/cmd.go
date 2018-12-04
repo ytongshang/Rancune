@@ -89,7 +89,13 @@ func main() {
 		androidNotification.Title = C.Notice.AndroidTitle
 		androidNotification.UriAction = C.Notice.AndroidUriAction
 		androidNotification.UriActivity = C.Notice.AndroidUriActivity
-		androidNotification.Extras = C.Notice.Extras
+		if androidNotification.Extras == nil {
+			androidNotification.Extras = make(map[string]interface{})
+		}
+		b, err := json.Marshal(C.Notice.Extras)
+		if err == nil {
+			androidNotification.Extras["AndroidPushContent"] = string(b)
+		}
 		notification.SetAndroidNotice(&androidNotification)
 
 		// ios
@@ -103,9 +109,9 @@ func main() {
 		if iosNotification.Extras == nil {
 			iosNotification.Extras = make(map[string]interface{})
 		}
-		b, err := json.Marshal(C.Notice.Extras)
-		if err == nil {
-			iosNotification.Extras["IOSPushContent"] = string(b)
+		b1, err1 := json.Marshal(C.Notice.Extras)
+		if err1 == nil {
+			iosNotification.Extras["IOSPushContent"] = string(b1)
 		}
 		notification.SetIOSNotice(&iosNotification)
 	}
