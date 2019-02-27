@@ -5,9 +5,10 @@ import (
 
 	"log"
 
+	"encoding/json"
+
 	"github.com/ytongshang/rancune/jpush"
 	"github.com/ytongshang/rancune/jpush/config"
-	"encoding/json"
 )
 
 const (
