@@ -48,7 +48,7 @@ func main() {
 		ad.SetTagNot(C.TagsNot)
 	}
 	if len(C.TagsAnd) > 0 {
-		ad.SetTagNot(C.TagsAnd)
+		ad.SetTagAnd(C.TagsAnd)
 	}
 	if len(C.Ids) > 0 {
 		ad.SetID(C.Ids)
@@ -95,13 +95,17 @@ func main() {
 		}
 		b, err := json.Marshal(C.Notice.Extras)
 		if err == nil {
-			androidNotification.Extras["AndroidPushContent"] = string(b)
+			androidNotification.Extras[C.NoticeKey.Android] = string(b)
 		}
 		notification.SetAndroidNotice(&androidNotification)
 
 		// ios
 		var iosNotification jpush.IOSNotification
-		iosNotification.Alert = C.Notice.Alert
+		if C.Notice.IOSUseJsonAlert {
+			iosNotification.Alert = C.Notice.IOSAlert
+		} else {
+			iosNotification.Alert = C.Notice.Alert
+		}
 		iosNotification.Sound = C.Notice.IOSSound
 		iosNotification.Badge = C.Notice.IOSBadge
 		iosNotification.Category = C.Notice.IOSCategory
@@ -112,7 +116,7 @@ func main() {
 		}
 		b1, err1 := json.Marshal(C.Notice.Extras)
 		if err1 == nil {
-			iosNotification.Extras["IOSPushContent"] = string(b1)
+			iosNotification.Extras[C.NoticeKey.IOS] = string(b1)
 		}
 		notification.SetIOSNotice(&iosNotification)
 	}

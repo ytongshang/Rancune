@@ -3,7 +3,7 @@
   "mastersecret": "******",
   "pushbaseurl": "https://bjapi.push.jiguang.cn/v3/push",
   "platforms": [
-    "android"
+    "ios"
   ],
   "tags": [],
   "tag_and": [],
@@ -34,11 +34,32 @@
       "liveType": "2"
     }
   },
+  "notificationkey": {
+    "ios": "IOSPushContent",
+    "android": "AndroidPushContent"
+  },
   "notification": {
     "alert": "hello, hello!",
     "android-title": "JPush test",
-    "android-uri-action":"com.kascend.chushou.view.activity.SchemeActivity",
+    "android-uri-action": "com.kascend.chushou.view.activity.SchemeActivity",
     "android-uri-activity": "com.kascend.chushou.view.activity.SchemeActivity",
+    "ios-use-json-alert": true,
+    "ios-alert": {
+      "title": "ddd",
+      "body": "ddd",
+      "title-loc-key": "ddd",
+      "title-loc-args": [
+        "ddd",
+        "ddd"
+      ],
+      "action-loc-key": "ddd",
+      "loc-key": "ddd",
+      "loc-args": [
+        "dd",
+        "dd"
+      ],
+      "launch-image": "ddd"
+    },
     "ios-sound": "default",
     "ios-badge": "1",
     "ios-content-available": false,

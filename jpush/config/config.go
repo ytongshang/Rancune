@@ -21,6 +21,7 @@ type config struct {
 	PushType     []string               `json:"pushtype"`
 	Msg          Message                `json:"message"`
 	Notice       Notice                 `json:"notification"`
+	NoticeKey    NoticeKey              `json:"notificationkey"`
 }
 
 type Message struct {
@@ -28,11 +29,18 @@ type Message struct {
 	Extras map[string]interface{} `json:"extras"`
 }
 
+type NoticeKey struct {
+	IOS     string `json:"ios"`
+	Android string `json:"android"`
+}
+
 type Notice struct {
 	Alert               string                 `json:"alert"`
 	AndroidTitle        string                 `json:"android-title"`
 	AndroidUriAction    string                 `json:"android-uri-action"`
 	AndroidUriActivity  string                 `json:"android-uri-activity"`
+	IOSUseJsonAlert     bool                   `json:"ios-use-json-alert"`
+	IOSAlert            map[string]interface{} `json:"ios-alert"`
 	IOSSound            string                 `json:"ios-sound"`
 	IOSBadge            string                 `json:"ios-badge"`
 	IOSContentAvailable bool                   `json:"ios-content-available"`
